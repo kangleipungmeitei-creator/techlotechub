@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Admin · Tech Lo Tech Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=4"></head><body>
+<header class="top"><div class="wrap"><a class="site-name" href="index.html">Tech Lo Tech Hub</a>
+ <nav><span id="who"></span><button class="link" id="out" hidden>Sign out</button></nav></div></header>
+<main class="wrap">
+ <section id="login" class="card" style="max-width:380px;margin:40px auto">
+  <h2 style="margin-top:0">Admin sign in</h2>
+  <label for="em">Email</label><input id="em" type="email" autocomplete="username">
+  <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+  <p id="lerr" class="err"></p><button class="pri" id="go">Sign in</button>
+ </section>
+ <section id="app" hidden>
+  <div class="tabs"><button id="t1" class="on">Papers</button><button id="t2">Categories</button><button id="t3">Submissions <span id="sbadge"></span></button><button id="t4">Announcements</button><button id="t5">Authors</button><button id="t6">Issue reports <span id="rbadge"></span></button></div>
+  <div id="pp">
+   <div class="card"><h2 id="ftitle" style="margin-top:0">New paper</h2>
+    <input type="hidden" id="pid">
+    <label for="pt">Title</label><input id="pt" type="text">
+    <label for="pau">Author / contributor (shown as credit)</label><input id="pau" type="text" placeholder="e.g. Jane Doe, University of X">
+    <label for="pas">Author page (optional, links the credit to the author’s page)</label><select id="pas"></select>
+    <div class="row"><div><label for="pc">Category</label><select id="pc"></select></div>
+     <div><label for="pf">PDF file (max 50 MB)</label>
+      <div id="drop" class="drop"><div>Drag and drop a PDF here, or choose a file</div>
+       <input id="pf" type="file" accept="application/pdf"></div>
+      <div id="pname" class="ok"></div><div id="pcur" class="meta"></div></div></div>
+    <label for="pa">Summary</label><textarea id="pa" rows="3"></textarea>
+    <label for="px">Full text (separate paragraphs with a blank line)</label><textarea id="px" rows="12"></textarea>
+    <div class="card" style="margin:14px 0"><h2 style="margin-top:0;font-size:1.1rem">Review details (shown publicly)</h2>
+     <label><input type="checkbox" id="cko"> Original work checked</label>
+     <label><input type="checkbox" id="cks"> Sources checked</label>
+     <label><input type="checkbox" id="ckp"> PDF matches the text</label>
+     <label><input type="checkbox" id="prev"> Mark as reviewed (shows the review badge with today’s date)</label>
+     <label for="prb">Reviewed by (leave empty for “the editorial team”)</label><input id="prb" type="text">
+     <label for="pen">Editor’s note</label><textarea id="pen" rows="3"></textarea>
+     <label for="prf">References (one per line)</label><textarea id="prf" rows="4"></textarea>
+     <label>Corrections log so far</label><div id="plog" class="meta">None</div>
+     <label for="pcn">Add a correction note (added to the public log with today’s date)</label><input id="pcn" type="text">
+    </div>
+    <label><input type="checkbox" id="pub"> Published (visible to everyone)</label>
+    <p id="pmsg" class="err"></p>
+    <button class="pri" id="psave">Save paper</button> <button id="pnew">Clear form</button>
+   </div>
+   <div class="card tbl"><table><thead><tr><th>Title</th><th>Category</th><th>Status</th><th></th></tr></thead><tbody id="ptb"></tbody></table></div>
+  </div>
+  <div id="sp" hidden><div id="slist"></div></div>
+  <div id="ap" hidden>
+   <div class="card"><h2 id="atitle" style="margin-top:0">New announcement</h2>
+    <input type="hidden" id="aid">
+    <label for="at">Title (this is the text shown in the top bar)</label><input id="at" type="text" maxlength="160">
+    <label for="ab">Message (optional, separate paragraphs with a blank line)</label><textarea id="ab" rows="6"></textarea>
+    <label><input type="checkbox" id="apub" checked> Published (visible on the Announcements page)</label>
+    <label><input type="checkbox" id="abar"> Show in the top bar of every page</label>
+    <p id="amsg" class="err"></p><button class="pri" id="asave">Save announcement</button> <button id="anew">Clear form</button></div>
+   <div class="card tbl"><table><tbody id="atb"></tbody></table></div>
+  </div>
+  <div id="aup" hidden>
+   <div class="card"><h2 id="autitle" style="margin-top:0">New author page</h2><input type="hidden" id="auid">
+    <label for="aun">Name</label><input id="aun" type="text">
+    <label for="aub">Short bio</label><textarea id="aub" rows="4" maxlength="1500"></textarea>
+    <div class="row"><div><label for="auw">Website</label><input id="auw" type="text" placeholder="https://"></div><div><label for="aug">GitHub</label><input id="aug" type="text" placeholder="https://github.com/…"></div></div>
+    <div class="row"><div><label for="aul">LinkedIn</label><input id="aul" type="text" placeholder="https://linkedin.com/in/…"></div><div><label for="auo">ORCID (0000-0000-0000-0000)</label><input id="auo" type="text"></div></div>
+    <p id="aumsg" class="err"></p><button class="pri" id="ausave">Save author</button> <button id="aunew">Clear form</button></div>
+   <div class="card tbl"><table><tbody id="autb"></tbody></table></div>
+  </div>
+  <div id="rp" hidden><div id="rlist"></div></div>
+  <div id="cp" hidden>
+   <div class="card"><h2 style="margin-top:0">Add category</h2>
+    <div class="row"><div><label for="cn">Name</label><input id="cn" type="text"></div>
+    <div><label for="cd">Description (optional)</label><input id="cd" type="text"></div></div>
+    <p id="cmsg" class="err"></p><button class="pri" id="cadd">Add category</button></div>
+   <div class="card tbl"><table><tbody id="ctb"></tbody></table></div>
+  </div>
+ </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/config.js?v=4"></script><script src="js/common.js?v=4"></script><script src="js/admin.js?v=4"></script>
+</body></html>

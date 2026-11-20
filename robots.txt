@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /report.html
+
+Sitemap: https://kangleipungweb.in/sitemap.xml

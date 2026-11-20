@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Submit a paper · Tech Lo Tech Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=4"></head><body>
+<header class="top"><div class="wrap"><a class="site-name" href="index.html">Tech Lo Tech Hub</a>
+<nav><a href="index.html">Papers</a><a href="submit.html">Submit a paper</a></nav></div></header>
+<main class="wrap">
+ <section class="hero"><h1>Share your knowledge with everyone.</h1>
+ <p>Researchers and developers are welcome to submit their work. Our team reviews every submission, and if it is published, you are credited as the author. It is free to read and free to submit.</p></section>
+ <form id="f" class="card" novalidate>
+  <div class="row"><div><label for="an">Your name (shown as credit)</label><input id="an" type="text" required autocomplete="name"></div>
+  <div><label for="ae">Your email (kept private, used only to contact you)</label><input id="ae" type="email" required autocomplete="email"></div></div>
+  <label for="af">Affiliation (optional)</label><input id="af" type="text" placeholder="University, company or independent">
+  <label for="st">Paper title</label><input id="st" type="text" required>
+  <label for="sc">Category</label><select id="sc"></select>
+  <label for="sa">Summary</label><textarea id="sa" rows="4" required></textarea>
+  <label for="sx">Full text (optional, separate paragraphs with a blank line)</label><textarea id="sx" rows="10"></textarea>
+  <label for="sf">PDF of your paper (max 20 MB)</label><input id="sf" type="file" accept="application/pdf" required>
+  <h2 style="font-size:1.1rem;margin-top:24px">Optional: your author page</h2>
+  <p class="meta">If your paper is published, we may create a public page about you. Add a short bio and links if you would like them shown. Your email is never shown.</p>
+  <label for="bi">Short bio</label><textarea id="bi" rows="3" maxlength="1500"></textarea>
+  <div class="row"><div><label for="lw">Website</label><input id="lw" type="text" placeholder="https://" maxlength="300"></div><div><label for="lg">GitHub</label><input id="lg" type="text" placeholder="https://github.com/…" maxlength="300"></div></div>
+  <div class="row"><div><label for="ll">LinkedIn</label><input id="ll" type="text" placeholder="https://linkedin.com/in/…" maxlength="300"></div><div><label for="lo">ORCID</label><input id="lo" type="text" placeholder="0000-0000-0000-0000" maxlength="300"></div></div>
+  <label style="display:none">Leave empty <input id="hp" type="text" tabindex="-1" autocomplete="off"></label>
+  <label style="margin-top:16px;color:var(--ink)"><input id="ok" type="checkbox"> I confirm this is my own original work, not copied from or already published elsewhere without permission. I allow Tech Lo Tech Hub to publish it on this website, including alongside advertising, with credit to me, and I accept the <a href="terms.html" target="_blank">Terms</a>.</label>
+  <p id="msg" class="err"></p><button class="pri" id="go" type="submit">Submit for review</button>
+ </form>
+ <p class="meta">Prefer email? Write to <a href="mailto:sorokhaibamnungsibasingh@gmail.com">sorokhaibamnungsibasingh@gmail.com</a>.</p>
+</main>
+<footer><div class="wrap"><p>Every paper here is contributed by independent researchers and developers who share their knowledge for free. Each paper credits its author.</p><p class="flinks"><a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms &amp; Disclaimer</a> · <a href="announcements.html">Announcements</a> · <a href="archive.html">All papers</a></p></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/config.js?v=4"></script><script src="js/announce.js?v=4"></script><script src="js/common.js?v=4"></script><script src="js/submit.js?v=4"></script>
+</body></html>
