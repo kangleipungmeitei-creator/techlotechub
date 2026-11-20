@@ -19,14 +19,14 @@ else {
 }
 
 const LINKS = p => `<a href="${p}about.html">About</a> · <a href="${p}contact.html">Contact</a> · <a href="${p}privacy.html">Privacy Policy</a> · <a href="${p}terms.html">Terms &amp; Disclaimer</a> · <a href="${p}announcements.html">Announcements</a> · <a href="${p}archive.html">All papers</a>`;
-const shell = (p, title, desc, canon, extra, body) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+const shell = (p, title, desc, canon, extra, body, tail = `<script src="${p}js/config.js?v=6"></script><script src="${p}js/announce.js?v=6"></script>`) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">${canon ? `<link rel="canonical" href="${esc(canon)}">` : ""}
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${p}css/style.css?v=6">${extra}</head><body>
 <header class="top"><div class="wrap"><a class="site-name" href="${p}index.html">${esc(NAME)}</a><nav><a href="${p}index.html">Papers</a><a href="${p}submit.html">Submit a paper</a></nav></div></header>
 ${body}
-<footer><div class="wrap"><p>Every paper here is contributed by independent researchers and developers who share their knowledge for free. Each paper credits its author.</p><p>Tech Lo Tech Hub (kangleipungweb.in) is operated under Kangleipung Initiative.</p><p class="flinks">${LINKS(p)}</p></div></footer><script src="${p}js/config.js?v=6"></script><script src="${p}js/announce.js?v=6"></script></body></html>`;
+<footer><div class="wrap"><p>Every paper here is contributed by independent researchers and developers who share their knowledge for free. Each paper credits its author.</p><p>Tech Lo Tech Hub (kangleipungweb.in) is operated under Kangleipung Initiative.</p><p class="flinks">${LINKS(p)}</p></div></footer>${tail}</body></html>`;
 
 rmSync("papers", { recursive: true, force: true }); mkdirSync("papers");
 for (const p of papers) {
@@ -63,7 +63,8 @@ let idx = readFileSync("index.html", "utf8");
 idx = idx.replace(/<!--PAPERS-->[\s\S]*?<!--\/PAPERS-->/, () => `<!--PAPERS-->${list || '<div class="empty">No papers have been published yet.</div>'}<!--/PAPERS-->`);
 writeFileSync("index.html", idx);
 writeFileSync("archive.html", shell("", `All papers · ${NAME}`, `Browse every paper published on ${NAME}.`, SITE ? `${SITE}/archive.html` : "", "",
-  `<main class="wrap prose"><h1>All papers</h1>${list || "<p>No papers have been published yet.</p>"}</main>`));
+  `<main class="wrap prose"><h1>All papers</h1><div id="alist">${list || "<p>No papers have been published yet.</p>"}</div></main>`,
+  `<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="js/config.js?v=6"></script><script src="js/common.js?v=6"></script><script src="js/announce.js?v=6"></script><script src="js/archive.js?v=6"></script>`));
 
 if (SITE) {
   const pages = ["", "archive.html", "submit.html", "announcements.html", "about.html", "contact.html", "privacy.html", "terms.html", ...papers.map(p => `papers/${p.slug}.html`)];
