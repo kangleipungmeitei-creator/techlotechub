@@ -6,8 +6,9 @@
   ]);
   if (c.error || p.error) { $("list").innerHTML = '<div class="empty">Papers couldn’t be loaded. Check js/config.js and try again.</div>'; return; }
   const cats = c.data, papers = p.data, byId = Object.fromEntries(cats.map(x => [x.id, x]));
+  const used = new Set(papers.map(x => x.category_id));
   function render() {
-    $("cats").innerHTML = [{slug:"",name:"All"}, ...cats].map(x =>
+    $("cats").innerHTML = [{slug:"",name:"All"}, ...cats.filter(c => used.has(c.id))].map(x =>
       `<button class="cat${x.slug === cat ? " on" : ""}" data-c="${esc(x.slug)}">${esc(x.name)}</button>`).join("");
     const t = q.toLowerCase();
     const rows = papers.filter(x => (!cat || byId[x.category_id]?.slug === cat) && (!t || (x.title + " " + x.abstract).toLowerCase().includes(t)));
