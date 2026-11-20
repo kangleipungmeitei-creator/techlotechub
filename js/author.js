@@ -10,5 +10,5 @@
     .map(l => `<a href="${esc(l[1])}" target="_blank" rel="noopener noreferrer">${l[0]}</a>`).join(" · ");
   $("main").innerHTML = `<h1>${esc(a.name)}</h1>${a.bio ? `<p style="white-space:pre-wrap">${esc(a.bio)}</p>` : ""}${links ? `<p>${links}</p>` : ""}
     <h2>Papers by ${esc(a.name)}</h2>` + ((ps || []).length ? ps.map(x => `<article class="paper"><h2 style="font-size:1.15rem"><a href="paper.html?slug=${encodeURIComponent(x.slug)}">${esc(x.title)}</a></h2>
-    <div class="meta">${fmt(x.created_at)}</div>${x.abstract ? `<p>${esc(x.abstract)}</p>` : ""}</article>`).join("") : '<div class="empty">No published papers yet.</div>');
+    <div class="meta">${fmt(x.created_at)}</div>${x.abstract ? `<p>${esc(clip(x.abstract))}</p>` : ""}</article>`).join("") : '<div class="empty">No published papers yet.</div>');
 })();

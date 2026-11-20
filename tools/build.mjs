@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 const cfg = readFileSync("js/config.js", "utf8");
 const get = k => (cfg.match(new RegExp(k + '\\s*:\\s*"([^"]*)"')) || [])[1];
 const URL_ = get("SUPABASE_URL"), KEY = get("SUPABASE_KEY"), NAME = get("SITE_NAME"), SITE = (get("SITE_URL") || "").replace(/\/$/, "");
+const clip = (s, n = 240) => { s = String(s || ""); return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "") + "…" : s; };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const date = d => new Date(d).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" });
 
@@ -22,10 +23,10 @@ const shell = (p, title, desc, canon, extra, body) => `<!DOCTYPE html><html lang
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">${canon ? `<link rel="canonical" href="${esc(canon)}">` : ""}
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${p}css/style.css?v=5">${extra}</head><body>
+<link rel="stylesheet" href="${p}css/style.css?v=6">${extra}</head><body>
 <header class="top"><div class="wrap"><a class="site-name" href="${p}index.html">${esc(NAME)}</a><nav><a href="${p}index.html">Papers</a><a href="${p}submit.html">Submit a paper</a></nav></div></header>
 ${body}
-<footer><div class="wrap"><p>Every paper here is contributed by independent researchers and developers who share their knowledge for free. Each paper credits its author.</p><p>Tech Lo Tech Hub (kangleipungweb.in) is operated under Kangleipung Initiative.</p><p class="flinks">${LINKS(p)}</p></div></footer><script src="${p}js/config.js?v=5"></script><script src="${p}js/announce.js?v=5"></script></body></html>`;
+<footer><div class="wrap"><p>Every paper here is contributed by independent researchers and developers who share their knowledge for free. Each paper credits its author.</p><p>Tech Lo Tech Hub (kangleipungweb.in) is operated under Kangleipung Initiative.</p><p class="flinks">${LINKS(p)}</p></div></footer><script src="${p}js/config.js?v=6"></script><script src="${p}js/announce.js?v=6"></script></body></html>`;
 
 rmSync("papers", { recursive: true, force: true }); mkdirSync("papers");
 for (const p of papers) {
@@ -56,7 +57,7 @@ ${corr.length ? `<section class="sec"><h2>Updates and corrections</h2><ul>${corr
 }
 
 const list = papers.map(p => `<article class="paper"><h2><a href="papers/${esc(p.slug)}.html">${esc(p.title)}</a></h2>
-<div class="meta">${(p.authors ? p.authors.name : p.author) ? `By ${esc(p.authors ? p.authors.name : p.author)} · ` : ""}${p.categories ? `${esc(p.categories.name)} · ` : ""}${date(p.created_at)}</div>${p.abstract ? `<p>${esc(p.abstract)}</p>` : ""}</article>`).join("\n");
+<div class="meta">${(p.authors ? p.authors.name : p.author) ? `By ${esc(p.authors ? p.authors.name : p.author)} · ` : ""}${p.categories ? `${esc(p.categories.name)} · ` : ""}${date(p.created_at)}</div>${p.abstract ? `<p>${esc(clip(p.abstract))}</p>` : ""}</article>`).join("\n");
 // Put the same list into the home page as plain HTML (the page script then replaces it with the searchable version)
 let idx = readFileSync("index.html", "utf8");
 idx = idx.replace(/<!--PAPERS-->[\s\S]*?<!--\/PAPERS-->/, () => `<!--PAPERS-->${list || '<div class="empty">No papers have been published yet.</div>'}<!--/PAPERS-->`);

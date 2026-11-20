@@ -15,7 +15,7 @@
     $("list").innerHTML = rows.length ? rows.map(x => `<article class="paper">
       <h2><a href="paper.html?slug=${encodeURIComponent(x.slug)}">${esc(x.title)}</a></h2>
       <div class="meta">${x.author ? "By " + esc(x.author) + " · " : ""}${esc(byId[x.category_id]?.name || "Uncategorised")} · ${fmt(x.created_at)}${x.pdf_path ? " · PDF available" : ""}</div>
-      ${x.abstract ? `<p>${esc(x.abstract)}</p>` : ""}</article>`).join("") : '<div class="empty">No papers found.</div>';
+      ${x.abstract ? `<p>${esc(clip(x.abstract))}</p>` : ""}</article>`).join("") : '<div class="empty">No papers found.</div>';
   }
   $("cats").onclick = e => { const s = e.target.dataset.c; if (s !== undefined) { cat = s; render(); } };
   $("q").oninput = e => { q = e.target.value.trim(); render(); };
